@@ -1,20 +1,45 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Async Function with Timeout</title>
+</head>
+<body>
 
-<html>
-  <head>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
+  <input type="text" id="text">
+  <input type="number" id="delay" placeholder="Delay in seconds">
+  <button id="btn">Display Message</button>
+  <div id="output"></div>
 
-  <body>
-    <!-- the entire body must be written by student -->
-    <form onsubmit="return false">
-      <input type="text" id="text" placeholder="Text" />
-      <input type="number" id="delay" placeholder="Delay" />
-      <button type="button" id="btn">Submit</button>
-    </form>
+  <script>
+    async function displayMessageWithDelay() {
+      const textInput = document.getElementById('text').value;
+      const delayInput = document.getElementById('delay').value;
 
-    <div id="output"></div>
+      if (!textInput || !delayInput) {
+        alert('Please enter both text and delay values.');
+        return;
+      }
 
-    <script type="text/javascript" src="./script.js"></script>
-  </body>
+      const delayInSeconds = parseInt(delayInput, 10);
+
+      try {
+        // Wait for the specified delay
+        await new Promise(resolve => setTimeout(resolve, delayInSeconds * 1000));
+
+        // Display the message on the webpage
+        const outputDiv = document.getElementById('output');
+        outputDiv.textContent = textInput;
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    }
+
+    // Attach the function to the button click event
+    document.getElementById('btn').addEventListener('click', displayMessageWithDelay);
+  </script>
+
+</body>
 </html>
+
